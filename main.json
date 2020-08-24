@@ -1,0 +1,17 @@
+[
+  {
+    "id":"$treeplantertool00_open",
+    "type":"tool",
+    "preview frames":[{"bmp":"icon.png"}],
+    "title id":"draft_treeplantertool00_title",
+    "text id":"draft_treeplantertool00_text",
+    "category":"$cat_tree00",
+    "script":"#LuaWrapper",
+    "meta":{
+      "luawrapper":{
+        "script":"script.lua",
+        "dev":true
+      }
+    }
+  }
+]
