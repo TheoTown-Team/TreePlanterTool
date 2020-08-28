@@ -196,6 +196,16 @@ function script:event(x, y, level, event)
         about()
       end
     }
+
+    -- Use filter for draw function for better performance since 1.9.33
+    if TheoTown.setToolFilter then
+      TheoTown.setToolFilter{
+        water = true,    -- Call it for water
+        building = true, -- or for buildings
+        road = true,     -- or for road
+        mouse = true     -- or for mouse location (desktop only)
+      }
+    end
   end
 end
 
