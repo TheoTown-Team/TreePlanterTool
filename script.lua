@@ -12,6 +12,10 @@ local treeSelection
 local setTile = Drawing.setTile
 local drawTileFrame = Drawing.drawTileFrame
 
+-- Change functions used for undo actions
+local startCapture
+local endCapture
+
 -- Gets the storage table we use for saving the settings
 local function getStorage()
   return Util.optStorage(TheoTown.getStorage(), script:getDraft():getId())
@@ -173,6 +177,12 @@ function script:init()
   loadState()
 end
 
+-- Reset capture functions to prevent memory leaks
+function script:leaveCity()
+  startCapture = nil
+  endCapture = nil
+end
+
 -- Setup tool
 function script:event(x, y, level, event)
   if event == Script.EVENT_TOOL_ENTER then
@@ -206,6 +216,12 @@ function script:event(x, y, level, event)
         mouse = true     -- or for mouse location (desktop only)
       }
     end
+
+    -- Add undo button for history and get the capture functions for
+    -- using it
+    if TheoTown.addUndoButton then
+      startCapture, endCapture = TheoTown.addUndoButton()
+    end
   end
 end
 
@@ -228,6 +244,9 @@ end
 function script:click(tileX, tileY)
   if isValid(tileX, tileY) and not treeSelection:isEmpty() then
     local radius = math.ceil(brushSize / 2)
+    if startCapture then
+      startCapture(tileX, tileY)
+    end
     local price = 0
 
     -- Iterate over all possible tiles and decided whether to spawn a tree
@@ -274,5 +293,8 @@ function script:click(tileX, tileY)
 
     -- Spend the money for the trees
     City.spendMoney(price, tileX, tileY)
+    if endCapture then
+      endCapture()
+    end
   end
 end
