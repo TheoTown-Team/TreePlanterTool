@@ -245,7 +245,7 @@ function script:click(tileX, tileY)
   if isValid(tileX, tileY) and not treeSelection:isEmpty() then
     local radius = math.ceil(brushSize / 2)
     if startCapture then
-      startCapture(tileX, tileY)
+      startCapture(tileX - radius, tileY - radius, tileX + radius, tileY + radius, tileX, tileY)
     end
     local price = 0
 
