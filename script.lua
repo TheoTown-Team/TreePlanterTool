@@ -43,7 +43,7 @@ local function loadState()
   if stg.treeSelection then
     for _,id in pairs(stg.treeSelection) do
       local draft = Draft.getDraft(id)
-      if draft and draft:getType()=='tree' then
+      if draft and draft:getType() == 'tree' and draft:isVisible() then
         treeSelection:add(draft)
       end
     end
@@ -173,7 +173,7 @@ end
 -- Initialize stuff
 function script:init()
   treeDrafts = Draft.getDrafts()
-      :filter(function(d) return d:getType()=='tree' end)
+      :filter(function(d) return d:getType() == 'tree' and d:isVisible() end)
   loadState()
 end
 
