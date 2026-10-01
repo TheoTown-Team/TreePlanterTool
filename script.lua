@@ -107,7 +107,7 @@ local function configure()
   line = layout:addCanvas{h=lh}
   line:addLabel{w=lw,text=Translation.treeplanter_species}
   line:addCanvas{x=lw,w=-24,h=lh,onDraw=function(self,x,y,w,h)
-    Drawing.drawRect(x,y,w,h)
+    Drawing.drawNinePatch(NinePatch.LIST_BOX, x, y, w + 23, h)
     if #selectedDrawers>0 then
       Drawing.setClipping(x,y,w,h)
       local size = self:getClientHeight()

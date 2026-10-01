@@ -1,6 +1,6 @@
 [
   {
-    "id":"$treeplantertool00_open",
+    "id":"$treeplantertool01_open",
     "type":"tool",
     "frames":[{"bmp":"icon.png"}],
     "title id":"draft_treeplantertool00_title",
